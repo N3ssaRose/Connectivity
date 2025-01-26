@@ -1,0 +1,74 @@
+[
+  {
+    "id": "file_01JGPTZ0F5ENSETJJ124CN4D22",
+    "accessPolicies": [
+      "public_content"
+    ],
+    "contentType": "application/json",
+    "size": 354,
+    "status": "upload_completed",
+    "tags": {
+      "source": "integration",
+      "system": "true",
+      "integrationName": "webchat",
+      "webchatConfigVersion": "1"
+    },
+    "key": "webchatConfig.json",
+    "index": false,
+    "updatedAt": "2025-01-26T12:21:29.928Z"
+  },
+  {
+    "id": "file_01JGPTZ0363CSM5ERDPJBD8YJ8",
+    "accessPolicies": [
+      "public_content"
+    ],
+    "contentType": "application/javascript",
+    "size": 377,
+    "status": "upload_completed",
+    "tags": {
+      "source": "integration",
+      "system": "true",
+      "integrationName": "webchat",
+      "webchatInjectConfigVersion": "1"
+    },
+    "key": "webchatConfigInject.js",
+    "index": false,
+    "updatedAt": "2025-01-26T12:21:29.796Z"
+  },
+  {
+    "id": "file_01JGPNDJZKQEJKMYR8VBQBEMFF",
+    "accessPolicies": [
+      "public_content"
+    ],
+    "contentType": "application/javascript",
+    "size": 404,
+    "status": "upload_completed",
+    "tags": {
+      "source": "integration",
+      "summarize": "true",
+      "integrationName": "webchat",
+      "webchatInjectConfigVersion": "1"
+    },
+    "key": "webchatConfigInject.js",
+    "index": false,
+    "updatedAt": "2025-01-03T18:04:10.603Z"
+  },
+  {
+    "id": "file_01JGPNDJW1JW15AXDSY264Y72B",
+    "accessPolicies": [
+      "public_content"
+    ],
+    "contentType": "application/json",
+    "size": 381,
+    "status": "upload_completed",
+    "tags": {
+      "source": "integration",
+      "summarize": "true",
+      "integrationName": "webchat",
+      "webchatConfigVersion": "1"
+    },
+    "key": "webchatConfig.json",
+    "index": false,
+    "updatedAt": "2025-01-03T18:04:10.488Z"
+  }
+]

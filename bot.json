@@ -1,0 +1,1399 @@
+{
+  "version": "1.13",
+  "settings": {
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "description": "",
+    "id": "439c7655-e3d2-424d-b2ca-2d02ef0de2ca",
+    "inactivityTimeout": 30,
+    "botVariables": [],
+    "userVariables": [],
+    "nodeRepetitionLimit": 10,
+    "configVariables": {},
+    "cognitiveConfigs": {
+      "openAi": {}
+    },
+    "useClient": true,
+    "useLlmz": true,
+    "defaultBestModel": "openai__gpt-4o-2024-08-06",
+    "defaultFastModel": "openai__gpt-4o-mini-2024-07-18",
+    "llmzVersion": "01-Oct-2024",
+    "autonomousModel": "openai__gpt-4o-2024-08-06"
+  },
+  "flows": [
+    {
+      "id": "wf-error",
+      "name": "Error",
+      "startNode": "nd-98dc0bcc87",
+      "variables": [],
+      "links": [
+        {
+          "id": "edg-1cb5862648",
+          "source": "nd-98dc0bcc87",
+          "sourcePort": "trs-02c7129430",
+          "target": "nd-58fca56e01"
+        },
+        {
+          "id": "edg-1c28c96d6a",
+          "source": "nd-58fca56e01",
+          "sourcePort": "nd-58fca56e01",
+          "target": "nd-e05f59dd66"
+        }
+      ],
+      "nodes": [
+        {
+          "comment": "<p><strong><span style=\"font-size: 18px\">⛔️ When something goes wrong</span></strong></p><p><br>This workflow is executed when there's an <strong>unexpected error</strong> in one of the other workflows.</p><p></p><p>You can use this to inform the user of the situation before ending the conversation.</p>",
+          "type": "comment",
+          "id": "nd-8ff3d7d295",
+          "name": "Comment1",
+          "deletable": true,
+          "instructions": [],
+          "height": 148,
+          "width": 401,
+          "x": 90,
+          "y": -45
+        },
+        {
+          "instructions": [
+            {
+              "id": "ins-2762f70004",
+              "type": "content",
+              "content": {
+                "type": "text",
+                "text": {
+                  "staticValue": "Sorry, an error occurred. Please try again later",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-58fca56e01",
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": "nd-e05f59dd66"
+          },
+          "type": "standard",
+          "id": "nd-58fca56e01",
+          "name": "Handler",
+          "deletable": true,
+          "x": 450,
+          "y": 120
+        },
+        {
+          "id": "nd-98dc0bcc87",
+          "name": "On_Error",
+          "type": "entry",
+          "deletable": false,
+          "variables": [],
+          "instructions": [
+            {
+              "id": "trs-02c7129430",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-58fca56e01"
+              },
+              "transitions": [],
+              "nodeId": "nd-98dc0bcc87"
+            }
+          ],
+          "x": 90,
+          "y": 120
+        },
+        {
+          "id": "nd-e05f59dd66",
+          "name": "End",
+          "type": "end",
+          "variables": [],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-945140a646",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": [],
+              "nodeId": "nd-e05f59dd66"
+            }
+          ],
+          "x": 810,
+          "y": 120
+        }
+      ]
+    },
+    {
+      "id": "wf-timeout",
+      "name": "Timeout",
+      "startNode": "nd-9f7f3268ac",
+      "variables": [],
+      "links": [
+        {
+          "id": "edg-b0d2adcd13",
+          "source": "nd-e6c012a652",
+          "sourcePort": "nd-e6c012a652",
+          "target": "nd-199fdcf439"
+        },
+        {
+          "id": "edg-6d17a0591b",
+          "source": "nd-9f7f3268ac",
+          "sourcePort": "trs-0c7a9a0003",
+          "target": "nd-e6c012a652"
+        }
+      ],
+      "nodes": [
+        {
+          "instructions": [],
+          "defaultTransition": {
+            "targetNodeId": "nd-199fdcf439"
+          },
+          "type": "standard",
+          "id": "nd-e6c012a652",
+          "name": "Handler",
+          "deletable": true,
+          "x": 435,
+          "y": 105
+        },
+        {
+          "comment": "<p><strong><span style=\"font-size: 18px\">⌛️ When conversation times out</span></strong></p><p><br>This workflow is executed when the conversation <strong>times out</strong> before it had time to flow to an <strong>End Node</strong>.</p><p></p><p>The <strong>Timeout Delay</strong> is configurable in the <strong>Chatbot Settings.</strong></p><p></p><p>You can use this to inform the user of the situation before ending the conversation.</p>",
+          "type": "comment",
+          "id": "nd-441efa6c42",
+          "name": "Comment1",
+          "deletable": true,
+          "instructions": [],
+          "height": 173,
+          "width": 401,
+          "x": 105,
+          "y": -90
+        },
+        {
+          "id": "nd-9f7f3268ac",
+          "name": "On_Timeout",
+          "type": "entry",
+          "deletable": false,
+          "variables": [],
+          "instructions": [
+            {
+              "id": "trs-0c7a9a0003",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-e6c012a652"
+              },
+              "transitions": [],
+              "nodeId": "nd-9f7f3268ac"
+            }
+          ],
+          "x": 100,
+          "y": 100
+        },
+        {
+          "id": "nd-199fdcf439",
+          "name": "End",
+          "type": "end",
+          "variables": [],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-bf76943d55",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": [],
+              "nodeId": "nd-199fdcf439"
+            }
+          ],
+          "x": 795,
+          "y": 105
+        }
+      ]
+    },
+    {
+      "id": "wf-conversation-end",
+      "name": "Conversation End",
+      "startNode": "nd-c0d3bd2c92",
+      "variables": [],
+      "links": [
+        {
+          "id": "edg-3cb8028ff6",
+          "source": "nd-c0d3bd2c92",
+          "sourcePort": "trs-92c6f93b0c",
+          "target": "nd-2db7499cc6"
+        },
+        {
+          "id": "edg-8a88f687a0",
+          "source": "nd-2db7499cc6",
+          "sourcePort": "nd-2db7499cc6",
+          "target": "nd-d0c2a6be81"
+        }
+      ],
+      "nodes": [
+        {
+          "instructions": [],
+          "defaultTransition": {
+            "targetNodeId": "nd-d0c2a6be81"
+          },
+          "type": "standard",
+          "id": "nd-2db7499cc6",
+          "name": "Handler",
+          "deletable": true,
+          "x": 420,
+          "y": 105
+        },
+        {
+          "comment": "<p><strong><span style=\"font-size: 18px\">👋 Before Conversation Ends</span></strong></p><p><br>This workflow is executed when right before the conversation <strong>Ends Explicitly.</strong></p><p></p><p>An <strong>Explicit Ending</strong> happens when a workflow transitions on an <strong>End Node</strong>.</p>",
+          "type": "comment",
+          "id": "nd-6d5d3f41dd",
+          "name": "Comment1",
+          "deletable": true,
+          "instructions": [],
+          "height": 148,
+          "width": 461,
+          "x": 105,
+          "y": -45
+        },
+        {
+          "id": "nd-c0d3bd2c92",
+          "name": "On_Explicit_Ending",
+          "type": "entry",
+          "deletable": false,
+          "variables": [],
+          "instructions": [
+            {
+              "id": "trs-92c6f93b0c",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-2db7499cc6"
+              },
+              "transitions": [],
+              "nodeId": "nd-c0d3bd2c92"
+            }
+          ],
+          "x": 100,
+          "y": 100
+        },
+        {
+          "id": "nd-d0c2a6be81",
+          "name": "End",
+          "type": "end",
+          "variables": [],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-7004dbb2b6",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": [],
+              "nodeId": "nd-d0c2a6be81"
+            }
+          ],
+          "x": 780,
+          "y": 105
+        }
+      ]
+    },
+    {
+      "topicId": "tpc-global",
+      "id": "wf-main",
+      "name": "Main",
+      "startNode": "nd-2bb9db230d",
+      "variables": [],
+      "links": [],
+      "nodes": [
+        {
+          "id": "nd-2bb9db230d",
+          "name": "Start",
+          "type": "start",
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-8b0779edc5",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-04777845bd"
+              },
+              "transitions": [],
+              "nodeId": "nd-2bb9db230d"
+            }
+          ],
+          "x": -390,
+          "y": -555,
+          "kbPriority": {
+            "enabled": true,
+            "searchScope": "specific",
+            "kbs": [
+              "kb-2f0a7ea639"
+            ]
+          }
+        },
+        {
+          "id": "nd-80ac4ff158",
+          "name": "End",
+          "type": "end",
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-0260f5e672",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": null
+              },
+              "transitions": [],
+              "nodeId": "nd-80ac4ff158"
+            }
+          ],
+          "x": 465,
+          "y": 45
+        },
+        {
+          "type": "autonomous",
+          "deletable": true,
+          "x": 0,
+          "y": -600,
+          "instructions": [
+            {
+              "name": "extractImageContent",
+              "title": "Extract Content from Image",
+              "description": "Extracts text content and descriptions from an image",
+              "input": {
+                "_def": {
+                  "unknownKeys": "strip",
+                  "catchall": {
+                    "_def": {
+                      "typeName": "ZodNever"
+                    }
+                  },
+                  "typeName": "ZodObject"
+                },
+                "_cached": null
+              },
+              "output": {
+                "_def": {
+                  "type": {
+                    "_def": {
+                      "innerType": {
+                        "_def": {
+                          "checks": [],
+                          "typeName": "ZodString",
+                          "coerce": false
+                        }
+                      },
+                      "typeName": "ZodOptional",
+                      "description": "The content of the images"
+                    }
+                  },
+                  "typeName": "ZodPromise"
+                }
+              },
+              "id": "ins-4efef94382",
+              "label": "Extract Content from Image",
+              "type": "autonomous",
+              "toolType": "agent",
+              "category": "Agents",
+              "agentId": "VisionAgent",
+              "toolId": "extractImageContent",
+              "nodeId": "nd-04777845bd",
+              "manualFields": [],
+              "imageUrl": "",
+              "transitions": []
+            },
+            {
+              "id": "ins-4190c01726",
+              "type": "autonomous",
+              "toolType": "skill",
+              "flowId": "wf-f7a9c0f2a2",
+              "name": "Search",
+              "category": "Flow Logic",
+              "exitNodes": [],
+              "transitions": [],
+              "nodeId": "nd-04777845bd",
+              "manualFields": [
+                "actions.captureScreenshot.enabled",
+                "actions.webSearch.enabled",
+                "actions.browsePages.enabled"
+              ],
+              "variables": [
+                {
+                  "defaultValue": "",
+                  "type": "string",
+                  "name": "query",
+                  "description": "",
+                  "id": "var-17aac9ca74",
+                  "scope": "workflow",
+                  "secret": false,
+                  "value": {
+                    "staticValue": "",
+                    "valueType": "static",
+                    "dynamicValue": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ins-d5ae050ba2",
+              "type": "autonomous",
+              "toolType": "skill",
+              "flowId": "wf-b483a5fc26",
+              "name": "Browse",
+              "category": "Flow Logic",
+              "exitNodes": [],
+              "transitions": [],
+              "nodeId": "nd-04777845bd",
+              "manualFields": [
+                "actions.captureScreenshot.enabled",
+                "actions.webSearch.enabled",
+                "actions.browsePages.enabled"
+              ],
+              "variables": [
+                {
+                  "defaultValue": [],
+                  "arrayType": "string",
+                  "type": "array",
+                  "name": "urls",
+                  "description": "A list of URLs to fetch",
+                  "id": "var-2f2959696e",
+                  "scope": "workflow",
+                  "secret": false,
+                  "value": {
+                    "staticValue": [],
+                    "valueType": "static",
+                    "dynamicValue": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "ins-5e25e9e5b7",
+              "type": "autonomous",
+              "toolType": "table",
+              "enabledOperations": {
+                "createRows": {
+                  "valueType": "static",
+                  "staticValue": true,
+                  "dynamicValue": ""
+                },
+                "deleteRows": false,
+                "findRows": true,
+                "updateRows": {
+                  "valueType": "static",
+                  "staticValue": false,
+                  "dynamicValue": ""
+                }
+              },
+              "label": "BoiingPointTable",
+              "category": "Execute",
+              "tableId": "table_01JGPNDK22AE6R0XYVB16K5X6H",
+              "nodeId": "nd-04777845bd",
+              "manualFields": [],
+              "transitions": []
+            },
+            {
+              "id": "ins-fb8b34a831",
+              "type": "autonomous",
+              "toolType": "integration",
+              "origin": "integration",
+              "label": "Capture Screenshot",
+              "integrationId": "browser",
+              "actionName": "captureScreenshot",
+              "nodeId": "nd-04777845bd",
+              "manualFields": [
+                "actions.captureScreenshot.enabled",
+                "actions.webSearch.enabled",
+                "actions.browsePages.enabled"
+              ],
+              "url": "",
+              "transitions": []
+            },
+            {
+              "id": "ins-1b88814e65",
+              "type": "autonomous",
+              "toolType": "integration",
+              "origin": "integration",
+              "label": "Line Plot",
+              "integrationId": "charts",
+              "actionName": "generateLinePlot",
+              "nodeId": "nd-04777845bd",
+              "manualFields": [],
+              "transitions": []
+            },
+            {
+              "id": "ins-7b4eb0dec5",
+              "toolType": "search",
+              "kbs": {
+                "valueType": "static",
+                "staticValue": []
+              },
+              "advanced": {
+                "contextDepth": 3,
+                "maxTokens": 10,
+                "mode": "consolidate"
+              },
+              "type": "autonomous",
+              "label": "Query Knowledge Bases",
+              "category": "Agents",
+              "transitions": [],
+              "nodeId": "nd-04777845bd",
+              "manualFields": []
+            },
+            {
+              "id": "ins-9106ecf4b9",
+              "type": "autonomous",
+              "toolType": "integration",
+              "origin": "integration",
+              "label": "Generate Image",
+              "integrationId": "simplygreatbots/dalle",
+              "actionName": "generateImage",
+              "nodeId": "nd-04777845bd",
+              "manualFields": [],
+              "prompt": "",
+              "guidelines": {
+                "valueType": "dynamic",
+                "dynamicValue": "Always generate an iat the start of the conversation and to enhance the conversation when they tell their location upload an image of the location. Never upload the same picture twice."
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-04777845bd",
+          "name": "Autonomous",
+          "writableVariables": [
+            "var-c97821f420",
+            "var-6d08a8f542"
+          ],
+          "guidelines": {
+            "valueType": "dynamic",
+            "dynamicValue": "Always generate an image at the start of the conversation after the intro.\nAlways ask them in your first message if they want help with internet connectivity,  cybersecurity or which Software to choose by buttons. Important to list all three options.\n\nAlways deliver an image when they tell their location and show an image or several when they have chosen their type of connectivity that illustrates how it works. Also generate an image when writing goodbye. You are a Conncection GPT, a helpful assistant. Style of communication is business. Dont generate the same picture twice in a conversation.\n\nThe audience is usually admins of communal or governmental fascilities. \n\n\n\nYou the Connectivity GPT bot  quickly start the conversation with your message appearing first. \n\nYour role is to help them find the best internet connectivity acess based on their location and needs and after that to suggest guides on internet connectivity setup.\n\nOr to help them with the best security solutions needed for their connectivity and to provide them with the best software options based on their needs. Always list the  prices for the options. Give preference to solutions like cisco or alternatives which give comprehensive solutions.\n\nOr to give them suggestions on the best software to use for their use case. \n\nAfter they told you what use case and location for security they need it for list the best software options with spaces between and their prices. Also tell them the most common problems to arise and how to solve them.\n\nIt can also be both, in that case give the best acess to internet connectivity first and after that security and software suggestions. \n\nIf they want the best cybersecurity solutions ask them about for what it is needed and the locations of this or these. Then provide them with the most suitable options for their selected needs. If its a school for example make a structured list or table informing them of possible threats and solutions. After that ask if they want to learn more about any of the options, make a yes or no button.  Also suggest the best Resource Allocation Optimizer for their needs. Also tell them the most common problems to arise and how to solve them.\n\nAsk again which option they want to learn more about if they didn't already write it \n\n\nYou also inform the user about the average school, hospital and government buildings needs of internet connection, how much these entities average usage will be in your first message, let them know that these are examples. And ask them to clarify if they want to get guidance on connectivity or cybersecurity. \n\nYou structure tables often when they have more then one entity they are asking about. \n\n\nImage input capabilities: Enabled\n\n## BrowseAsyncQueue\n\nYou have the tool `SearchAsyncQueue`. Use `SearchAsyncQueue` in the following circumstances:\n    - User is asking about current events or something that requires real-time information (weather, sports scores, etc.)\n    - User is asking about some term you are totally unfamiliar with (it might be new)\n    - User explicitly asks you to browse or provide links to references\n\nGiven a query that requires retrieval, your turn will consist of three steps:\n1. Call the searchAsyncQueue tool to get a list of results.\n2. Call the browseAsyncQueue tool to retrieve a diverse and high-quality subset of these results (in parallel). Remember to SELECT AT LEAST 3 sources when using `browseAsyncQueue`.\n3. Write a response to the user based on these results. In your response, cite sources using the citation format below.\n\nIn some cases, you should repeat step 1 twice, if the initial results are unsatisfactory, and you believe that you can refine the query to get better results.\n\nYou can also open a url directly if one is provided by the user.\n\nFor citing quotes from the 'BrowseAsyncQueue' tool: please render them in valid markdown link format.\n\n# Objective: You are an exceptional customer support representative.  Your objective is to answer questions in the best way possible when it comes to internet connectivity. You prefer if the user answers simple yes or no to your questions. Always ask them in your first message if they want help with internet connectivity,  cybersecurity or which software to choose. This is the algorithm you follow: Output: Best connectivity option based on conditions. \n{\n\n  \"greeting\": {\n\n    \"text\": \"Hello! I am an internet connectivity bot here to help you choose the best option for internet connectivity.\",\n\n    \"next\": \"ask_need\"\n\n  },\n\n  \"ask_need\": {\n\n    \"text\": \"First, I need to know what you need me for. Here are a few examples to guide you:\\n1. Internet for hospitals or healthcare administration.\\n2. Reliable networks for schools or educational facilities.\\n3. Connectivity for libraries, universities, or community centers.\\n4. Planning internet for housing areas or urban infrastructure.\\n5. Specialized needs for government offices, public safety, or emergency services.\\n6. Managing recreational areas like swimming pools or public parks.\\n\\nYou can also type a specific use case if it’s not listed here.\",  \n\nImportant: Ask about location next and move on.\n\n    \"next\": \"ask_location\"\n\n  },\n\n  \"ask_location\": {\n\n    \"text\": \"Great! Could you let me know your location so I can check what options are available in your area? You can provide a city, zip code, or just a general region.\", Always, ask as the second response. If it is remote and provide example in meters or kilometers or prefered unit for that user.  And let them know full coverage information about internet connectivity in their chosen location, if its limited, networks around and how good the coverage is for the closest providers in the area. Suggest best alternatives to connect to internet based on this and ask how much their budget is.\n\n\n    \"next\": \"ask_budget\"\n\n  },\n\n  \"ask_budget\": {\n\n    \"text\": \"What is your budget for setting up and maintaining the network? Here’s how budgets are generally categorized in your region:\\n- Low Budget: Make assumption of amount based on connectivity prices.\\n- Medium Budget:  Make assumption of amount based on connectivity prices. \\n- High Budget:  Make assumption of amount based on connectivity prices. \\n\\nThis helps me find the most cost-effective and practical options for you.\",  \n\n    \"next\": \"provide_recommendations\"\n\n  },\n\n  \"provide_recommendations\": {\n\n    \"action\": \"evaluate_user_input\",\n\n    \"branches\": [\n\n      {\n\n        \"condition\": \"low_budget\",\n\n        \"response\": \"For a low budget under [amount in local currency], fixed wireless broadband or community mesh networks are your best options. For example, [specific provider or system] offers plans starting at [local currency amount], with speeds sufficient for light to moderate use.\\n\\nIf you had a higher budget, you could opt for a satellite system like Starlink or Guowang, which provides global coverage and better reliability in rural areas for around [higher cost].\"Then ask them if they want you to tell them how to setup the internet connection and where they could connect to if relevant. \n\n      },\n\n      {\n\n        \"condition\": \"medium_budget\",\n\n        \"response\": \"With a medium budget of [amount range], satellite internet like Starlink or Guowang could offer reliable connectivity for remote locations. Installation costs are moderate, and you’d get speeds suitable for streaming, remote work, or multiple users.\\n\\nFor a higher budget, a fiber-optic network would be the best choice, offering exceptional speed, low latency, and scalability. However, installation costs may exceed [higher amount in local currency].\" Then ask them if they want you to tell them how to setup the internet connection and where they could connect to if relevant. \n\n      },\n\n      {\n\n        \"condition\": \"high_budget\",\n\n        \"response\": \"With a high budget over [amount in local currency], you can install a fiber-optic network, ensuring top-tier speed, reliability, and scalability. This option is ideal for critical facilities like hospitals, universities, or government offices.\\n\\nIf your budget were slightly lower, you could still achieve solid performance with a combination of fixed wireless broadband and a high-end router, reducing costs while maintaining excellent coverage.\" Also ask which connectivity option they choose before asking if they want help setting up the network.  Then ask them if they want you to tell them how to setup the internet connection and where they could connect to if relevant. \n\nNext always ask if they want further education in internet connectivity.\n\n      }\n\n    ],\n\n    \"next\": \"ask_education\"\n\n  },\n\n  \"ask_education\": {\n\n    \"text\": \"Would you like to learn more about setting up and understanding your internet connection? Here are your options:\\n1. A short, basic understanding of how this connectivity works and how to set it up.\\n2. A more in-depth course focused on this specific type of connectivity, with tips to improve and maintain it optimally.\\n3. A comprehensive course that also covers other types of internet connectivity for comparison.\\n4. The most detailed course, covering all types of internet connectivity in-depth, so you fully understand the topic.\\n\\nIf you’re not interested in learning more, that’s perfectly fine—just let me know!\", Also tell them the most common problems to arise and how to solve them.\n\n  Always ask if the user wants a deeper education in the network or networks  provide yes or no buttons \"next\": \"education_response\"\n\n  },\n\n  \"education_response\": {\n\n    \"action\": \"evaluate_user_input\",\n\n    \"branches\": [\n\n      {\n\nAlways ask if the user wants a deeper education in the network or networks. Provide yes or no buttons. If the user says no, politely say goodbye.   \n\n      },\n\n      {\n\n        \"condition\": \"option_1\",\n\n        \"response\": \"Here’s a short, basic guide:\\n- Satellite internet: Requires a dish with a clear line of sight to the sky and a receiver to distribute the connection inside your building.\\n- Fixed wireless: Uses an antenna to connect to a nearby tower, which then links to your devices via a router.\\n- Fiber-optic: Transmits data using light through cables, providing unmatched speed and reliability.\\n\\nI hope this helps! Let me know if you need further assistance.\"  \n\n      },\n\n      {\n\n        \"condition\": \"option_2\",\n\n        \"response\": \"Here’s a more detailed guide for [chosen type]:\\n- How it works, typical setup requirements, and optimal placement for equipment.\\n- Maintenance tips: For example, regularly check for obstructions in satellite connections or ensure your router firmware is up-to-date.\\n\\nI can also provide links to resources or videos if you’d like!\"\n\n      },\n\n      {\n\n        \"condition\": \"option_3\",\n\n        \"response\": \"Let’s explore your chosen connectivity and compare it to others:\\n- Satellite: Great for rural areas but has latency issues compared to fiber-optic.\\n- Fixed Wireless: Cost-effective but requires proximity to a tower.\\n- Fiber-Optic: Ideal for high-speed, reliable connections but expensive in remote areas.\\n\\nThis will help you understand the pros and cons of different options for future upgrades.\" Always inform on the closest area to the location chosen with great internet or provide search results thats show the best locations for great internet connectivity closest to location chosen.\n\n      },\n\n      {\n\n        \"condition\": \"option_4\",\n\n        \"response\": \"Here’s a full breakdown of all types of internet connectivity, from how they work to advanced topics like network optimization and security:\\n- Satellite, fiber, fixed wireless, DSL, and emerging technologies like 6G and mesh networks.\\n- Best practices for setup, scalability, and improving reliability.\\n\\nI can provide extensive resources, tutorials, and further assistance if needed.\"    \n\n      }\n\n    ]\n\n  }\n\n}\n\n\n\n\n\n\n"
+          },
+          "allowConversation": true
+        },
+        {
+          "type": "comment",
+          "deletable": true,
+          "x": -60,
+          "y": -1005,
+          "instructions": [],
+          "comment": "<p>This Autonomous Agent works like ChatGPT. It can answer your questions and find answers on the web. It also has vision capabilities. Here are a few things you can try:</p><ol><li><p>Try asking it to take a screenshot of your website.</p></li><li><p>Try asking for the weather in your city,</p></li><li><p>Or what's the nearest restaurant from your address,</p></li><li><p>Or send an image url and ask questions about the image.</p></li><li><p>You can also install the DALL-E integration and it can also generate images for you.</p></li><li><p>You can ask it to plot some data in the BoilingPoint table.</p></li></ol><p>Or you can combine all the capabilities at once. You can ask it - \"Can you search the web for 5 elements and their boiling points.\"</p><p><br>Then you can ask it - \"Can you insert them into the table?\"</p><p><br>And finally - \"Can you plot the data on a chart?</p><p></p><p></p><p></p>",
+          "id": "nd-e5910e8ded",
+          "name": "Comment1",
+          "height": 353,
+          "width": 401,
+          "rotation": 0.11630453163715515
+        },
+        {
+          "type": "video",
+          "deletable": true,
+          "instructions": [],
+          "x": -585,
+          "y": -915,
+          "youtubeUrl": "https://www.youtube.com/watch?v=Hyq_Bwn2W5M",
+          "id": "nd-7cb1d81ad1",
+          "name": "Video1"
+        }
+      ],
+      "parentFolder": "root"
+    },
+    {
+      "id": "wf-f7a9c0f2a2",
+      "name": "Search",
+      "startNode": "nd-b738954f75",
+      "variables": [
+        {
+          "defaultValue": "",
+          "type": "string",
+          "name": "query",
+          "description": "",
+          "id": "var-17aac9ca74",
+          "scope": "workflow",
+          "secret": false
+        },
+        {
+          "id": "var-f3173a2c31",
+          "name": "pages",
+          "type": "object",
+          "description": "",
+          "typings": "BrowserWebSearch",
+          "scope": "workflow"
+        }
+      ],
+      "links": [],
+      "nodes": [
+        {
+          "id": "nd-b738954f75",
+          "name": "Entry",
+          "type": "entry",
+          "deletable": false,
+          "variables": [
+            "var-8da98aa528",
+            "var-17aac9ca74"
+          ],
+          "instructions": [
+            {
+              "id": "trs-1f93534064",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-f3ce571aee"
+              },
+              "transitions": [],
+              "nodeId": "nd-b738954f75"
+            }
+          ],
+          "x": 100,
+          "y": 100
+        },
+        {
+          "id": "nd-cd3f6e93ae",
+          "name": "Exit",
+          "type": "exit",
+          "variables": [
+            "var-64b85248be",
+            "var-f3173a2c31"
+          ],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-3fa9dc2434",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "#"
+              },
+              "transitions": [],
+              "nodeId": "nd-cd3f6e93ae"
+            }
+          ],
+          "x": 800,
+          "y": 100
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 450,
+          "y": 120,
+          "instructions": [
+            {
+              "id": "ins-97a72522a2",
+              "type": "action",
+              "origin": "integration",
+              "label": "Web Search",
+              "integration": {
+                "id": "browser",
+                "action": "webSearch"
+              },
+              "nodeId": "nd-f3ce571aee",
+              "data": {
+                "query": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "{{workflow.query}}"
+                },
+                "includeSites": {
+                  "valueType": "static",
+                  "staticValue": [],
+                  "dynamicValue": ""
+                },
+                "count": {
+                  "valueType": "static",
+                  "staticValue": 10,
+                  "dynamicValue": ""
+                }
+              },
+              "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();",
+              "outputVariableId": "var-f3173a2c31",
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": "nd-cd3f6e93ae"
+          },
+          "id": "nd-f3ce571aee",
+          "name": "Standard1"
+        }
+      ],
+      "parentFolder": "root"
+    },
+    {
+      "id": "wf-b483a5fc26",
+      "name": "Browse",
+      "startNode": "nd-85033754fb",
+      "variables": [
+        {
+          "defaultValue": [],
+          "arrayType": "string",
+          "type": "array",
+          "name": "urls",
+          "description": "A list of URLs to fetch",
+          "id": "var-2f2959696e",
+          "scope": "workflow",
+          "secret": false
+        },
+        {
+          "id": "var-874e9a9ad6",
+          "name": "content",
+          "type": "object",
+          "description": "",
+          "typings": "BrowserBrowsePages",
+          "scope": "workflow"
+        }
+      ],
+      "links": [
+        {
+          "id": "lnk-b29a565a93",
+          "source": "nd-85033754fb",
+          "target": "nd-0e48a86373",
+          "sourcePort": "trs-8fb975d172"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "nd-85033754fb",
+          "name": "Entry",
+          "type": "entry",
+          "deletable": false,
+          "variables": [
+            "var-2f2959696e"
+          ],
+          "instructions": [
+            {
+              "id": "trs-8fb975d172",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-0e48a86373"
+              },
+              "transitions": [],
+              "nodeId": "nd-85033754fb"
+            }
+          ],
+          "x": 100,
+          "y": 100
+        },
+        {
+          "id": "nd-3d980592b9",
+          "name": "Exit",
+          "type": "exit",
+          "variables": [
+            "var-8516216f62",
+            "var-02d8ea3f74",
+            "var-874e9a9ad6"
+          ],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-eb05ad3a6b",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "#"
+              },
+              "transitions": [],
+              "nodeId": "nd-3d980592b9"
+            }
+          ],
+          "x": 800,
+          "y": 100
+        },
+        {
+          "id": "nd-0e48a86373",
+          "name": "Standard",
+          "type": "standard",
+          "deletable": true,
+          "instructions": [
+            {
+              "id": "ins-af30c041b7",
+              "type": "action",
+              "origin": "integration",
+              "label": "Browse Pages",
+              "integration": {
+                "id": "browser",
+                "action": "browsePages"
+              },
+              "category": "Execute",
+              "nodeId": "nd-0e48a86373",
+              "data": {
+                "urls": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "{{workflow.urls}}",
+                  "staticValue": [],
+                  "isExpression": true
+                }
+              },
+              "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();",
+              "outputVariableId": "var-874e9a9ad6",
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": "nd-3d980592b9"
+          },
+          "x": 450,
+          "y": 105
+        }
+      ],
+      "parentFolder": "root"
+    }
+  ],
+  "intents": [
+    {
+      "id": "int-cancel",
+      "name": "cancel",
+      "utterances_with_slots": [
+        "cancel",
+        "abort",
+        "abandon",
+        "i want to cancel",
+        "forget about this",
+        "leave",
+        "stop",
+        "quit",
+        "you know what, nevermind",
+        "forget it"
+      ]
+    },
+    {
+      "id": "int-no",
+      "name": "no",
+      "utterances_with_slots": [
+        "no",
+        "i don't want to",
+        "absolutely not",
+        "nah",
+        "nope",
+        "not really",
+        "not sure",
+        "no thanks"
+      ]
+    },
+    {
+      "id": "int-yes",
+      "name": "yes",
+      "utterances_with_slots": [
+        "yes",
+        "yeah",
+        "absolutely",
+        "i'd like to",
+        "sure ",
+        "hmm probably",
+        "yup",
+        "ok"
+      ]
+    }
+  ],
+  "list_entities": [],
+  "pattern_entities": [],
+  "actions": [],
+  "hooks": [
+    {
+      "id": "hk-1wnbr9q",
+      "name": "knowledge-base-table-of-content",
+      "hookType": "before_llmz_execution",
+      "content": "\n// >>>>>>>>>>>>>>>>>>>>>>\n// This hook is generated and managed by the \"agi/kbo\" integration.\n// This hook provides your autonomous nodes with a Table of Contents of the included knowledge of\n// the knowledge bases used in your autonomous nodes (those included on the `search` tool).\n// Do not edit this file manually.\n\nconst searchTools = context.tools.filter((x) => x.name === 'search')\n\nawait Promise.allSettled(searchTools.map(appendSearchToolTableOfContent))\n\nasync function appendSearchToolTableOfContent(search: LLMZ.Tool) {\n  type SearchMetadata = { kbs: string[]; searchScope: 'all' | 'specific' }\n  const meta: SearchMetadata = search.metadata?.kbs ?? {\n    kbs: [],\n    searchScope: 'all'\n  }\n\n  const kbs = meta.searchScope === 'specific' ? meta.kbs : Artifact.knowledge_base.map((x) => x.id)\n\n  const passages = await Promise.allSettled(\n    kbs.map((kbId) =>\n      client.searchFiles({\n        query: event.preview,\n        consolidate: true,\n        contextDepth: 2,\n        limit: 2,\n        tags: {\n          purpose: 'master-summary',\n          kbId\n        }\n      })\n    )\n  ).then((x) => x.flatMap((y) => (y.status === 'fulfilled' ? y.value.passages.map((p) => p.content) : [])))\n\n  if (passages.length) {\n    context.instructions += `## Table of Contents (for tool \\`${search.name}\\`)\n\nThe below is a summary of the knowledge included in the Knowledge Bases (available to you when calling \\`${search.name}\\` tool).\n\n${passages.join('\\n\\n')}\n\n`\n  }\n}\n\n// End of the hook\n// <<<<<<<<<<<<<<<<<<<<\n",
+      "title": "Knowledge Base Table of Content",
+      "description": "Provides a table of content for the enabled Knowledge Bases on the active autonomous nodes.",
+      "origin": {
+        "type": "integration",
+        "integration": {
+          "id": "agi/kbo",
+          "name": "agi/kbo",
+          "version": "1.0.3"
+        }
+      }
+    },
+    {
+      "id": "hk-ml1yq",
+      "name": "conversation-analyzer-track-conversation",
+      "hookType": "after_conversation_end",
+      "content": "\n// >>>>>>>>>>>>>>>>>>>>>>\n// This hook is generated and managed by the \"agi/connor\" integration.\n// This hook tracks your conversations to provide some useful analytics on them. See the Int_Connor_Conversations_Table\n// Do not edit this file manually.\n\n   const { success, error } = await actions['agi/connor'].addOrUpdateConversation({\n    conversationId: event.conversationId,\n    transcript: event.state.session.history.length\n      ? event.state.session.history.map((h) => ({ sender: h.sender, preview: h.preview }))\n      : [{ sender: 'user', preview: event.preview }]\n  })\n\n// End of the hook\n// <<<<<<<<<<<<<<<<<<<<\n",
+      "title": "Track Conversation",
+      "description": "Tracks conversations in a Botpress table for analysis",
+      "origin": {
+        "type": "integration",
+        "integration": {
+          "id": "agi/connor",
+          "name": "agi/connor",
+          "version": "0.1.0"
+        }
+      },
+      "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n  const { success, error } = await actions[\"agi/connor\"].addOrUpdateConversation({\n    conversationId: event.conversationId,\n    transcript: event.state.session.history.length ? event.state.session.history.map((h) => ({ sender: h.sender, preview: h.preview })) : [{ sender: \"user\", preview: event.preview }]\n  });\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();"
+    },
+    {
+      "id": "hk-257fc21247",
+      "name": "C",
+      "content": "",
+      "hookType": "after_incoming_middleware",
+      "origin": {
+        "type": "user"
+      },
+      "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n  ;\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();"
+    }
+  ],
+  "qnas": [],
+  "knowledge_base": [
+    {
+      "dataSources": [
+        {
+          "created_on": 1735927539386,
+          "data": {
+            "freshness": "Any",
+            "websiteFilter": "none",
+            "websites": []
+          },
+          "disabled": false,
+          "id": "ds-76fa524f62",
+          "type": "web-search"
+        },
+        {
+          "created_on": 1725925298038,
+          "data": {},
+          "disabled": false,
+          "id": "ds-c276c0cfc1",
+          "type": "file-api"
+        }
+      ],
+      "description": "This is about New KB1",
+      "id": "kb-a1f208dfed",
+      "name": "Default Knowledge Base",
+      "parentFolder": "root"
+    }
+  ],
+  "folders": [],
+  "agents": {
+    "SummaryAgent": {
+      "enabled": true,
+      "config": {
+        "summaryMaxTokens": 100,
+        "transcriptMaxLines": 10
+      }
+    },
+    "TranslatorAgent": {
+      "config": {
+        "detectLanguage": true,
+        "detectContinuously": true
+      }
+    },
+    "KnowledgeAgent": {
+      "enabled": false,
+      "config": {
+        "answerManually": true,
+        "context": "Summary of the conversation:\n\"\"\"\n{{conversation.SummaryAgent.summary}}\n\"\"\"\n\nTranscript:\n\"\"\"\n{{conversation.SummaryAgent.transcript}}\n\"\"\"",
+        "bestModel": "gpt-4-turbo",
+        "strategy": "hybrid",
+        "chunks": 50
+      }
+    },
+    "PersonalityAgent": {
+      "enabled": false,
+      "config": {
+        "active": true,
+        "personality": {
+          "valueType": "dynamic",
+          "dynamicValue": "You are a funny clown that adds emojis to all your messages.",
+          "staticValue": ""
+        }
+      }
+    },
+    "VisionAgent": {
+      "enabled": true,
+      "config": {
+        "extractionEnabled": true
+      }
+    },
+    "HITLAgent": {
+      "enabled": false,
+      "config": {
+        "onWaitingForAgentAction": "  sendMessage('Waiting for an agent')",
+        "onAgentAssignedAction": "  sendMessage('You are speaking with ' + agentName + ' (' + agentEmail + ')')",
+        "onInteractionClosedAction": "  sendMessage('Interaction closed by agent')",
+        "onTimedOutWaitingAgentAction": "  sendMessage('Timed out waiting for an agent')",
+        "onUserCancelledAction": "  sendMessage('You have cancelled the escalation')",
+        "queueTimeoutDelay": 10,
+        "transcriptContext": "Channel: {{event.integration}}/{{event.channel}}\n---\nSummary:\n{{conversation.SummaryAgent.summary}}\n---\nTranscript:\n{{conversation.SummaryAgent.transcript}}"
+      }
+    },
+    "RouterAgent": {
+      "enabled": false,
+      "config": {
+        "context": "Summary of the conversation:\n\"\"\"\n{{conversation.SummaryAgent.summary}}\n\"\"\"\n\nTranscript:\n\"\"\"\n{{conversation.SummaryAgent.transcript}}\n\"\"\""
+      }
+    }
+  },
+  "tables": {
+    "table_01JGPNDK22AE6R0XYVB16K5X6H": {
+      "id": "table_01JGPNDK22AE6R0XYVB16K5X6H",
+      "name": "BoilingPointTable",
+      "factor": 1,
+      "frozen": false,
+      "tags": {},
+      "createdAt": "2025-01-03T18:04:10.693Z",
+      "updatedAt": "2025-01-03T18:04:10.693Z",
+      "createdBy": "user:cf8f06a1-b72f-4ab1-a3d8-92e6e42c1064",
+      "updatedBy": null,
+      "isComputeEnabled": false,
+      "schema": {
+        "type": "object",
+        "x-zui": {},
+        "properties": {
+          "Element": {
+            "type": "string",
+            "x-zui": {
+              "index": 0,
+              "typings": "",
+              "searchable": true
+            },
+            "nullable": true
+          },
+          "BoilingPoint": {
+            "type": "string",
+            "x-zui": {
+              "index": 1,
+              "typings": "",
+              "searchable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": true
+      },
+      "parentFolder": "root",
+      "selectors": []
+    },
+    "table_01JGPNDKB8NDDB0QZV0ZGTPAN7": {
+      "id": "table_01JGPNDKB8NDDB0QZV0ZGTPAN7",
+      "name": "RouterAgentTable",
+      "factor": 1,
+      "frozen": false,
+      "tags": {
+        "role": "agents/router/intents",
+        "agent": "RouterAgent",
+        "system": "true"
+      },
+      "createdAt": "2025-01-03T18:04:10.990Z",
+      "updatedAt": "2025-01-03T18:04:10.990Z",
+      "createdBy": "user:cf8f06a1-b72f-4ab1-a3d8-92e6e42c1064",
+      "updatedBy": null,
+      "isComputeEnabled": false,
+      "schema": {
+        "type": "object",
+        "x-zui": {},
+        "required": [
+          "phrase",
+          "intentId",
+          "phraseId"
+        ],
+        "properties": {
+          "phrase": {
+            "type": "string",
+            "x-zui": {
+              "index": 0,
+              "searchable": true
+            }
+          },
+          "intentId": {
+            "type": "string",
+            "x-zui": {
+              "index": 1,
+              "searchable": true
+            }
+          },
+          "phraseId": {
+            "type": "string",
+            "x-zui": {
+              "index": 2,
+              "searchable": true
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "parentFolder": "root",
+      "selectors": []
+    },
+    "table_01JGPNDNE4JP3B68DJKSWR87KH": {
+      "id": "table_01JGPNDNE4JP3B68DJKSWR87KH",
+      "name": "Int_Connor_Conversations_Table",
+      "factor": 30,
+      "frozen": true,
+      "tags": {
+        "origin": "integration",
+        "purpose": "Conversations",
+        "version": "Dec-2024",
+        "integration": "Int_connor",
+        "x-studio-icon": "lucide://MessagesSquare",
+        "x-studio-color": "grass",
+        "x-studio-title": "Conversations",
+        "x-studio-readonly": "true",
+        "x-studio-description": "Table for analyzing conversations"
+      },
+      "createdAt": "2025-01-03T18:04:13.128Z",
+      "updatedAt": "2025-01-03T18:04:13.128Z",
+      "createdBy": "integration:agi/connor",
+      "updatedBy": null,
+      "isComputeEnabled": true,
+      "schema": {
+        "type": "object",
+        "x-zui": {},
+        "required": [
+          "conversationId",
+          "transcript",
+          "summary",
+          "topics",
+          "escalations",
+          "resolved"
+        ],
+        "properties": {
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-zui": {}
+            },
+            "x-zui": {
+              "index": 4,
+              "title": "Topics",
+              "computed": {
+                "action": "ai",
+                "prompt": "Identify the topics mentioned by the user in the provided transcript. Focus only on user-initiated topics relevant to their needs (e.g., billing issues, technical troubleshooting, product recommendations, account setup, feature requests, complaints, or cancellation inquiries). \nTranscript:\n\n{{transcript}}",
+                "dependencies": [
+                  "transcript"
+                ]
+              },
+              "searchable": true
+            },
+            "nullable": true,
+            "description": "Optional. An array of topics or themes discussed during the conversation."
+          },
+          "summary": {
+            "type": "string",
+            "x-zui": {
+              "index": 2,
+              "title": "Summary",
+              "computed": {
+                "action": "ai",
+                "prompt": "Summarize the provided transcript.\nHere's the transcript:\n\n{{transcript}}",
+                "dependencies": [
+                  "transcript"
+                ]
+              },
+              "searchable": true
+            },
+            "nullable": true,
+            "description": "A brief summary of the conversation's content."
+          },
+          "resolved": {
+            "type": "boolean",
+            "x-zui": {
+              "index": 6,
+              "title": "Resolved",
+              "computed": {
+                "action": "ai",
+                "prompt": "Based on the transcript decide whether the users queries were resolved or not by the end of the chat. If not resolved respond with `false`.\nHere's the transcript:\n\n{{transcript}}",
+                "dependencies": [
+                  "transcript"
+                ]
+              },
+              "searchable": true
+            },
+            "nullable": true,
+            "description": "A boolean indicating whether the customer's issue was resolved by the end of the chat."
+          },
+          "sentiment": {
+            "enum": [
+              "very positive",
+              "positive",
+              "neutral",
+              "negative",
+              "very negative"
+            ],
+            "type": "string",
+            "x-zui": {
+              "index": 3,
+              "title": "Sentiment",
+              "computed": {
+                "action": "ai",
+                "prompt": "Based on the transcript decide the overall sentiment inferred from the conversation (from the following - very positive, positive, neutral, negative, very negative).\nHere's the transcript:\n\n{{transcript}}",
+                "dependencies": [
+                  "transcript"
+                ]
+              },
+              "searchable": true
+            },
+            "nullable": true,
+            "description": "Optional. The overall sentiment inferred from the conversation (e.g., positive, neutral, negative)."
+          },
+          "transcript": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "x-zui": {},
+              "required": [
+                "sender",
+                "preview"
+              ],
+              "properties": {
+                "sender": {
+                  "enum": [
+                    "bot",
+                    "user"
+                  ],
+                  "type": "string",
+                  "x-zui": {}
+                },
+                "preview": {
+                  "type": "string",
+                  "x-zui": {}
+                }
+              },
+              "additionalProperties": false
+            },
+            "x-zui": {
+              "index": 1,
+              "title": "Transcript",
+              "searchable": true
+            },
+            "description": "The transcript of the conversation, represented as an array of message items."
+          },
+          "escalations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-zui": {}
+            },
+            "x-zui": {
+              "index": 5,
+              "title": "Escalations",
+              "computed": {
+                "action": "ai",
+                "prompt": "Extract the escalations from the provided transcript. An array representing moments when the conversation was escalated to another team member or department.\nHere's the transcript:\n\n{{transcript}}",
+                "dependencies": [
+                  "transcript"
+                ]
+              },
+              "searchable": true
+            },
+            "nullable": true,
+            "description": "Optional. An array representing moments when the conversation was escalated to another team member or department."
+          },
+          "conversationId": {
+            "type": "string",
+            "x-zui": {
+              "index": 0,
+              "title": "Conversation ID",
+              "searchable": true
+            },
+            "description": "A unique identifier for this specific chat session."
+          }
+        },
+        "additionalProperties": true
+      },
+      "parentFolder": "root",
+      "selectors": []
+    }
+  },
+  "schemas": [],
+  "versions": [
+    {
+      "name": "26 Jan 25 01:21",
+      "id": "version_01JJH8YNS8D6A1WM9NZNJZ6Q4X"
+    },
+    {
+      "name": "26 Jan 25 11:57",
+      "id": "version_01JJH45JBHJAZ0MC2059F0RCBD"
+    },
+    {
+      "name": "26 Jan 25 09:42",
+      "id": "version_01JJGWDVG4RCZ3R9JMY2CCQPBY"
+    }
+  ],
+  "revision": 803,
+  "revisionMetadata": {
+    "lastRevisionCheckAt": "2025-01-26T12:21:02.849Z",
+    "lastRevisionId": 802,
+    "multiplayerStatus": "connected",
+    "multiplayerTraces": [
+      "2025-01-26T11:59:09.227Z: connecting -> closing (Connection closing)",
+      "2025-01-26T11:59:09.227Z: closing -> closed (Connection closed)",
+      "2025-01-26T11:59:09.233Z: initialized -> connecting (ok)",
+      "2025-01-26T11:59:10.400Z (wn61wPjEQ3): connecting -> connected (ok)",
+      "2025-01-26T11:59:42.452Z (wn61wPjEQ3): connected -> disconnected (Connection to server temporarily unavailable)",
+      "2025-01-26T11:59:42.607Z: disconnected -> connecting (ok)",
+      "2025-01-26T11:59:42.607Z: connecting -> closing (Connection closing)",
+      "2025-01-26T11:59:42.626Z: closing -> closed (Connection closed)",
+      "2025-01-26T11:59:42.690Z: initialized -> connecting (ok)",
+      "2025-01-26T11:59:52.913Z (B2peGfkftd): connecting -> connected (ok)"
+    ],
+    "players": [
+      "vanessa.m.lindberg@gmail.com / sess_01JJH5PCTQ2DYNTHP9QZYC92AN / Sun, 26 Jan 2025 11:59:55 GMT"
+    ],
+    "savedAt": "2025-01-26T12:21:33.081Z",
+    "savedBy": "vanessa.m.lindberg@gmail.com",
+    "sessionId": "sess_01JJH5PCTQ2DYNTHP9QZYC92AN"
+  },
+  "identity": {
+    "name": "Connectivity",
+    "manual_instructions": "You are Connection GPT, a business-oriented chatbot designed to assist administrators of communal or governmental facilities in finding optimal internet connectivity solutions based on their specific location and needs. Or Cybersecurity solutions based on their location and needs. You initiate conversations by providing average internet usage statistics for schools, hospitals, and government buildings, and you structure information in tables for clarity. Your process involves asking about the user's needs, location, and budget, followed by tailored recommendations for connectivity options. You also offer educational resources on internet connectivity setup and maintenance, ensuring users have the information they need to make informed decisions.",
+    "icon": {
+      "type": "emoji",
+      "emoji": "🤖 ",
+      "background_color": "var(--orange-5)"
+    },
+    "ai_summary": {
+      "value": "Connection GPT assists with internet and cybersecurity solutions.",
+      "input_hash": "1er4ve4",
+      "generated_at": "2025-01-26T10:56:48.748Z",
+      "version": "1.0.0"
+    }
+  }
+}
